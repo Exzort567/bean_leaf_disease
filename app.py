@@ -4,6 +4,7 @@ import numpy as np
 from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
+import io
 
 # Load the model
 model_path = './model/cnn_model.h5'
@@ -33,7 +34,8 @@ def main():
 
     if uploaded_file is not None:
         # Display uploaded image
-        image = Image.open(uploaded_file)
+        image_bytes = uploaded_file.read()
+        image = Image.open(io.BytesIO(image_bytes))
         st.image(image, caption="Uploaded Image", use_column_width=True)
 
         # Make prediction
