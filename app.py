@@ -14,8 +14,8 @@ model = load_model(model_path)
 class_names = ['angular leaf spot', 'bean rust', 'healthy']
 
 # Function to make predictions
-def predict(image_file):
-    img = image.load_img(image_file, target_size=(224, 224))
+def predict(image):
+    img = image.resize((224, 224))  # Resize the image
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
     img_array /= 255.0
@@ -39,7 +39,7 @@ def main():
         st.image(image, caption="Uploaded Image", use_column_width=True)
 
         # Make prediction
-        predicted_class, accuracy = predict(uploaded_file)
+        predicted_class, accuracy = predict(image)  # Pass the PIL Image object
         st.write("Prediction:", predicted_class)
         st.write("Accuracy:", accuracy)
 
