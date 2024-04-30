@@ -15,13 +15,13 @@ class_names = ['angular leaf spot', 'bean rust', 'healthy']
 
 # Function to make predictions
 def predict(image):
-    img = image.resize((224, 224))  # Resize the image
+    img = image.resize((224, 224))  # Resize the images
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
     img_array /= 255.0
     prediction = model.predict(img_array)
     predicted_class = np.argmax(prediction)
-    predicted_class_name = class_names[predicted_class]
+    predicted_class_name = class_names[predicted_class] 
     accuracy = np.max(prediction)
     return predicted_class_name, accuracy
 
