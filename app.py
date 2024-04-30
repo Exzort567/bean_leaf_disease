@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
+from tensorflow.keras.preprocessing import image as keras_image  # Rename to avoid conflict
 import io
 
 # Load the model
@@ -15,8 +15,8 @@ class_names = ['angular leaf spot', 'bean rust', 'healthy']
 
 # Function to make predictions
 def predict(image):
-    img = image.resize((224, 224))  # Resize the images
-    img_array = image.img_to_array(img)
+    img = image.resize((224, 224))  # Resize the image
+    img_array = keras_image.img_to_array(img)  # Use keras_image module
     img_array = np.expand_dims(img_array, axis=0)
     img_array /= 255.0
     prediction = model.predict(img_array)
